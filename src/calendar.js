@@ -8,6 +8,18 @@
 *
 */
 
+(function(factory) {
+  if (typeof define === 'function' && define.amd) { // AMD
+    define([ 'jquery', 'moment', 'angular', 'fullcalendar' ], factory);
+  }
+  else if (typeof exports === 'object') { // Node/CommonJS
+    module.exports = factory(require('jquery'), require('moment'), require('angular'), require('fullcalendar'));
+  }
+  else {
+    factory(jQuery, moment, angular);
+  }
+})(function($, moment, angular) {
+
 angular.module('ui.calendar', [])
   .constant('uiCalendarConfig', {calendars: {}})
   .controller('uiCalendarCtrl', ['$scope', 
@@ -340,3 +352,6 @@ angular.module('ui.calendar', [])
       }
     };
 }]);
+
+return 'ui.calendar'; // export for Node/CommonJS
+});
